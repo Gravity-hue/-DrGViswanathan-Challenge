@@ -1,0 +1,42 @@
+class Solution {
+public:
+
+bool possible(vector<int>& nums, int el, int M, int K){
+    int count=0;
+    int totalBouque=0;
+    int n=nums.size();
+
+    for(int i=0; i<n; i++){
+        if(nums[i]<=el){
+            count++;
+        }else{
+            totalBouque+=(count/K);
+            count =0;
+        }
+    }
+    totalBouque+=(count/K);
+
+    if(totalBouque>=M)return true;
+    else return false;
+}
+
+    int minDays(vector<int>& bloomDay, int m, int k) {
+        if(1LL *m*k>bloomDay.size())return -1;
+        int low=*min_element(bloomDay.begin(), bloomDay.end());
+        int high=*max_element(bloomDay.begin(), bloomDay.end());
+        int ans=-1;
+
+        while(low<=high){
+            int mid=low+(high-low)/2;
+
+            if( possible(bloomDay, mid, m, k)==true){
+                ans=mid;
+                high=mid-1;
+            }else{
+                low=mid+1;
+            }
+
+        }
+        return ans;
+    }
+};
