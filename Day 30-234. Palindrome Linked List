@@ -1,0 +1,33 @@
+ListNode* reverseRecursion(ListNode* prev, ListNode* curr){
+    if(curr==nullptr)return prev;
+
+    ListNode* nextNode=curr->next;
+    curr->next=prev;
+    return reverseRecursion(curr, nextNode);
+    }
+
+    bool isPalindrome(ListNode* head){
+        if(head==nullptr || head->next==nullptr)return true;
+
+        ListNode* slow=head;
+        ListNode* fast=head;
+
+        while(fast->next!=nullptr && fast->next->next!=nullptr){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        ListNode* secondHalfReversedHead=reverseRecursion(nullptr, slow->next);
+
+        ListNode* first=head;
+        ListNode* second=secondHalfReversedHead;
+        while(second!=nullptr){
+            if(first->val!=second->val){
+                reverseRecursion(nullptr,secondHalfReversedHead);//Maintain the original order
+                return false;}
+            first=first->next;
+            second=second->next;
+        }
+        reverseRecursion(nullptr,secondHalfReversedHead);
+        return true;
+
+    }
