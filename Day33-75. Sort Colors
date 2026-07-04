@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        //unsorted array between mid and high
+        int mid=0, low=0, high=nums.size()-1;
+
+        while(mid<=high){
+            if(nums[mid]==0){
+                //0's between 0 to low-1
+                swap(nums[mid],nums[low]);
+                mid++;
+                low++;
+            }else if(nums[mid]==1){
+                //1's between low to mid-1
+                mid++;
+            }else{
+                //2's between high+1 to n-1
+                swap(nums[mid],nums[high]);
+                    high--;
+            }
+
+        }
+    }
+};
