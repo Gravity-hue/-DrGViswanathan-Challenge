@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int pivot=-1;
+        //1st step: Finding pivot
+        for(int i=nums.size()-2; i>=0; i--){
+            if(nums[i]<nums[i+1]){
+            pivot=i;
+            break;}
+        }
+        //when the given array is the highest possible combination Ex-[5,4,3,2,1]
+        if(pivot==-1){
+            reverse(nums.begin(),nums.end());
+            return;
+        }
+
+        //2nd step: swap the just max. element with the pivot
+        for(int l=nums.size()-1;l>pivot;l--){
+            if(nums[l]>nums[pivot]){
+                swap(nums[l],nums[pivot]);
+                break;
+            }
+        }
+
+        //3rd step: reverse/sort the no. starting just after the pivot
+        reverse(nums.begin()+pivot+1,nums.end());
+    }
+};
