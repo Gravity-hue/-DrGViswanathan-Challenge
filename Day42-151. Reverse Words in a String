@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        reverse(s.begin(),s.end());//reversed the whole string
+        string ans="";
+
+        for(int i=0; i<s.length(); i++){
+            string word="";
+            while(s[i]!=' ' && i<s.length()){
+                word+=s[i];
+                i++;
+            }
+
+            reverse(word.begin(),word.end());//reversing each word
+            if(word.length()>0){//check if word is "",as it will add extra space
+                ans+=" "+word;
+            }
+        }
+        return ans.substr(1);//To remove extra space from idx 0
+    }
+};
