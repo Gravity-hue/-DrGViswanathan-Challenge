@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int reverse(int x) {
+        int reversed=0;
+
+        while(x!=0){
+            int remainder=x%10;
+
+            if(reversed>INT_MAX/10 || reversed<INT_MIN/10){//check for the given 32 bit condition
+                return 0;
+            }
+            //comparison can only be done before as reversed*10 step will cause the no. to go out of idx
+            reversed=reversed*10+remainder;
+            x=x/10;
+        }
+        return reversed;
+    }
+};
