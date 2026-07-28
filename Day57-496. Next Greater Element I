@@ -1,0 +1,76 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+         vector<int>ans;
+        int nums1Size=nums1.size();
+        int nums2Size=nums2.size();
+        int i=0;//nums1 track
+
+        while(i<nums1Size){
+            int pivot=nums1[i];
+            int j=0;//nums2 track
+            bool found=false;
+
+            while(nums2[j]!=pivot){
+                j++;
+            }
+            int nxt=j+1;//Right tracking
+
+            while(nxt<nums2Size){
+                if(nums2[nxt]>pivot){
+                    ans.push_back(nums2[nxt]);
+                    found=true;
+                    break;
+                }else{
+                    nxt++;
+                }
+            }
+            if(!found){
+                ans.push_back(-1);
+            }
+            i++;
+        }
+        return ans;
+
+    }
+};
+
+
+
+
+/*
+Brute Force:
+vector<int>ans;
+       stack<int>greaterElems;
+
+       int i=0;//nums1 track
+       while(i<nums1.size()){
+        int pivot=nums1[i];
+        int j=nums2.size()-1;
+
+        while(nums2[j]!=pivot){
+            if(nums2[j]>pivot){
+                greaterElems.push(nums2[j]);
+            }
+            j--;
+        }
+        if(greaterElems.empty()){
+            ans.push_back(-1);
+        }
+
+        while(!greaterElems.empty()){
+        if(greaterElems.top()>pivot){
+            ans.push_back(greaterElems.top());
+            break;
+        }
+        while(!greaterElems.empty()){
+            greaterElems.pop();
+        }
+        
+        }
+
+
+        i++;
+       }
+       return ans;
+        */
