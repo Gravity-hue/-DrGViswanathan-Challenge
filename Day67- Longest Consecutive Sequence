@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+  
+    int n=nums.size();
+    if(n==0)return 0;
+    sort(nums.begin(), nums.end());
+
+    int maxL=1;
+    int localL=1;
+
+    for(int i=0; i<n-1; i++){
+        if(nums[i+1]-nums[i]==0)continue;//When repititive number come 
+        if(nums[i+1]-nums[i]==1){//Forming sequence
+            localL++;
+        }else{
+            localL=1;
+        }
+        maxL=max(maxL,localL);
+    }
+    return maxL;
+
+    /*Optimal
+    int n=nums.size();
+    int longest=1;
+    unordered_set<int>sett;
+
+    for(int i=0; i<n; i++){
+        sett.insert(nums[i]);
+    }
+
+    for(auto it: sett){
+        if(sett.find(it-1)==sett.end()){
+            int count=1;
+            int x=it;
+
+            while(sett.find(x+1)!=sett.end()){
+                x=x+1;
+                count++;
+            }
+            longest=max(longest,count);
+        }
+    }
+    return longest;*/
+    }
+};
