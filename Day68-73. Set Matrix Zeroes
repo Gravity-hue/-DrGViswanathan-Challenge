@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+    //Optimal
+    int rows=matrix.size();
+    int columns=matrix[0].size();
+    int col0=1;//will decide the valu of [0][0]
+
+    for(int i=0; i<rows; i++){
+        for(int j=0; j<columns; j++){
+            if(matrix[i][j]==0){
+                matrix[i][0]=0;
+
+            if(j!=0){
+                matrix[0][j]=0;
+            }
+            else//when we found 0 in first column
+            col0=0;//to remember in future
+        }
+            }
+
+    }
+
+    for(int i=1; i<rows; i++){//Second row-last low
+        for(int j=1; j<columns; j++){//second column-last column
+            if(matrix[i][j]!=0){//Neglecting entire first row and entire first column
+                if(matrix[i][0]==0 || matrix[0][j]==0){
+                    matrix[i][j]=0;
+                }
+            }
+        }
+    }
+
+    if(matrix[0][0]==0){//make 0's in entire first row
+        for(int j=1; j<columns; j++){
+            matrix[0][j]=0;
+        }
+    }
+
+    if(col0==0){//At the end value of [0][0] will be defined
+        for(int i=0; i<rows; i++){
+            matrix[i][0]=0;
+        }
+    }
+    
+    }
+};
