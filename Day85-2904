@@ -1,0 +1,49 @@
+class Solution {
+public:
+    string shortestBeautifulSubstring(string s, int k) {
+        string minString=s;
+        string ans;
+        int left=0;
+        int count1=0;
+        int right=0;
+
+        while(right<s.length()){
+            if(s[right]=='1')count1++;
+
+            if(count1==k){
+
+                while(count1==k){
+                    string a=s.substr(left, right-left+1);
+
+                    if(minString.length()>a.length() || 
+                       (minString.length()==a.length() && a<minString)){
+                        minString=a;
+                    }
+
+                    if(s[left]=='1'){
+                        count1--;
+                    }
+                    left++;
+                }
+            }
+
+            right++;
+        }
+
+        if(minString==s){
+            int total1=0;
+
+            for(int i=0; i<s.length(); i++){
+                if(s[i]=='1'){
+                    total1++;
+                }
+            }
+
+            if(total1<k){
+                return "";
+            }
+        }
+
+        return minString;
+    }
+};
