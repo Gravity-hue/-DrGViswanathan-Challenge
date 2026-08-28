@@ -1,0 +1,24 @@
+class Solution {
+public:
+
+
+    int longestEqualSubarray(vector<int>& nums, int k) {
+        map<int,int>freq;
+        int longest=0;
+        int left=0;
+        int maxFrequency=0;
+
+        for(int right=0; right<nums.size(); right++){
+            freq[nums[right]]++;
+
+            maxFrequency=max(maxFrequency, freq[nums[right]]);//Right ptr is responsible for changing frequency of an element
+            
+            while((right-left+1)-maxFrequency>k){
+                freq[nums[left]]--;
+                left++;
+            }
+            longest=max(longest, maxFrequency);
+        }
+        return longest;
+    }
+};
