@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int minimumDeletions(vector<int>& nums) {
+        int n=nums.size();
+        if(n==1)return 1;
+
+        int maxIdx=0;
+        int minIdx=0;
+
+        for(int i=1; i<n; i++){
+            if(nums[i]>nums[maxIdx])maxIdx=i;
+            if(nums[i]<nums[minIdx])minIdx=i;
+        }
+
+        int leftBoundary=min(minIdx, maxIdx);
+        int rightBoundary=max(minIdx, maxIdx);
+
+        int leastDistance=min({rightBoundary+1,//Deletions from left only
+                               leftBoundary+1+n-rightBoundary,//Deletions from both sides
+                               n-leftBoundary});//Deletons from right only
+                        
+        return leastDistance;
+    }
+};
+
+
+/*
+class Solution {
+public:
+    int minimumDeletions(vector<int>& nums) {
+        int n=nums.size();
+        int maxIdx=0;
+        int minIdx=0;
+
+        for(int i=1; i<n; i++){
+            if(nums[i]>nums[maxIdx])maxIdx=i;
+            if(nums[i]<nums[minIdx])minIdx=i;
+        }
+
+        int minDeletions=INT_MAX;
+        int maxDeletions=INT_MAX;
+
+        if(maxIdx>minIdx){
+            minDeletions=min(minIdx+1, n-minIdx);
+            maxDeletions=min(maxIdx-minIdx,
+                         min(maxIdx+1, n-maxIdx));
+        }else{//minIdx>maxIdx
+            maxDeletions=min(maxIdx+1, n-maxIdx);
+            minDeletions=min(minIdx-maxIdx,
+                         min((minIdx+1),n-minIdx));
+        }
+        
+        int totalMinDistance=maxDeletions+minDeletions;
+
+        return totalMinDistance;
+    }
+};
+*/
