@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> nodesBetweenCriticalPoints(ListNode* head) {
+        ListNode* temp=head->next;
+        ListNode* prev=head;
+        vector<int>nodeTrack;
+        int nodeCount=2;
+
+        while(temp->next!=nullptr){
+            if((prev->val<temp->val && temp->val>temp->next->val) || (prev->val>temp->val &&temp->val<temp->next->val)){
+                nodeTrack.push_back(nodeCount);
+            }
+            nodeCount++;
+            prev=temp;
+            temp=temp->next;
+        }
+
+        int n=nodeTrack.size();
+        if(n<2)return {-1,-1};
+
+        int maxDistance=nodeTrack[n-1]-nodeTrack[0];
+        int minDistance=INT_MAX;
+
+        for(int i=0; i<n-1; i++){
+            minDistance=min(minDistance, nodeTrack[i+1]-nodeTrack[i]);
+        }
+
+        return {minDistance, maxDistance};        
+    }
+};
