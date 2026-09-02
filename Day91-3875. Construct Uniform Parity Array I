@@ -1,0 +1,58 @@
+class Solution {
+public:
+    bool uniformArray(vector<int>& nums1) {
+        int n=nums1.size();
+
+        bool allOdd=true;
+        bool allEven=true;
+
+        //Only even
+        for(int i=0; i<n; i++){
+            bool allGood=false;
+
+            if(nums1[i]%2==0){
+                allGood=true;
+                continue;
+            }
+            else{
+                for(int j=0; j<n; j++){
+                    if(j==i)continue;
+
+                    if((nums1[i]-nums1[j])%2==0){
+                        allGood=true;
+                        break;}
+            }
+        }
+        if(allGood==false){
+            allEven=false;
+            break;
+        } 
+    }
+
+
+        //Only odd
+            for(int i=0; i<n; i++){
+                bool allGood=false;
+
+                if(nums1[i]%2!=0){
+                    allGood=true;
+                    continue;
+                }
+                else{
+                    for(int j=0; j<n; j++){
+                        if(j==i)continue;
+
+                        if((nums1[i]-nums1[j])%2!=0){
+                            allGood=true;
+                            break;}
+                }
+            }
+            if(allGood==false){
+                allOdd=false;
+                break;}
+        }
+
+        if(allEven || allOdd)return true;
+        return false;
+    }
+};
